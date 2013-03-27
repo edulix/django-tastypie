@@ -72,6 +72,17 @@ class Authentication(object):
         return user.is_active
 
 
+class ReadOnlyAuthentication(Authentication):
+    """
+    Authenticates read-only GET requests.
+    """
+
+    def is_authenticated(self, request, **kwargs):
+        if request.method == 'GET':
+            return True
+        return False
+
+
 class BasicAuthentication(Authentication):
     """
     Handles HTTP Basic auth against a specific auth backend if provided,
